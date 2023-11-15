@@ -1,6 +1,5 @@
 #ifndef ARCHIVOPUNTAJES_H_INCLUDED
 #define ARCHIVOPUNTAJES_H_INCLUDED
-#include <iostream>
 #include <fstream>
 #include <vector>
 #include <algorithm>
@@ -11,7 +10,6 @@ private:
     std::vector<int> puntajes;
 
 public:
-
     ArchivoPuntajes(const std::string& archivo) : archivo(archivo) {
         cargarPuntajes();
     }
@@ -22,23 +20,15 @@ public:
         actualizarArchivo();
     }
 
-
     void cargarPuntajes() {
         std::ifstream archivoPuntajes(archivo, std::ios::binary);
-
-        if (!archivoPuntajes) {
-            // El archivo no existe, así que se creará uno nuevo
-            std::ofstream nuevoArchivo(archivo, std::ios::binary);
-            // No es necesario escribir nada, el archivo estará vacío
-        } else {
-            // El archivo existe, entonces se cargan los puntajes
+        if (archivoPuntajes.is_open()) {
             int puntaje;
-            while (archivoPuntajes.read(reinterpret_cast<char*>(&puntaje), sizeof(int))) {
+            while (archivoPuntajes.read(reinterpret_cast<char*>(&puntaje), sizeof(puntaje))) {
                 puntajes.push_back(puntaje);
             }
+            archivoPuntajes.close();
         }
-
-        archivoPuntajes.close();
     }
 
     const std::vector<int>& obtenerPuntajes() const {
@@ -47,12 +37,13 @@ public:
 
     void actualizarArchivo() {
         std::ofstream archivoPuntajes(archivo, std::ios::binary);
-        for (int puntaje : puntajes) {
-            archivoPuntajes.write(reinterpret_cast<char*>(&puntaje), sizeof(int));
+        if (archivoPuntajes.is_open()) {
+            for (int puntaje : puntajes) {
+                archivoPuntajes.write(reinterpret_cast<const char*>(&puntaje), sizeof(puntaje));
+            }
+            archivoPuntajes.close();
         }
-        archivoPuntajes.close();
     }
 };
-
 
 #endif // ARCHIVOPUNTAJES_H_INCLUDED

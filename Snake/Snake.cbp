@@ -39,7 +39,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="../../../../../../../../Program Files/CodeBlocks/SFML/include" />
+			<Add directory="C:/Program Files (x86)/CodeBlocks/SFML/include" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
@@ -47,7 +47,7 @@
 			<Add library="gdi32" />
 			<Add library="winmm" />
 			<Add library="dxguid" />
-			<Add directory="../../../../../../../../Program Files/CodeBlocks/SFML/lib" />
+			<Add directory="C:/Program Files (x86)/CodeBlocks/SFML/lib" />
 		</Linker>
 		<Unit filename="ArchivoPuntajes.h" />
 		<Unit filename="Comida.h" />

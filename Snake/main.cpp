@@ -38,6 +38,7 @@ int main(){
     sf::Text puntajeMaximoText;
     puntajeMaximoText.setFont(font);
 
+    ///SONIDOS
     sf::SoundBuffer comerBuffer;
     comerBuffer.loadFromFile("comer.wav");
     sf:: Sound comer;
@@ -170,30 +171,35 @@ int main(){
                             }
                         break;
 
-                        case 1: {
+                        case 1:
+                            {
                             window.clear();
+
                             const std::vector<int>& puntajes = Arch.obtenerPuntajes();
-                            puntajeMaximoText.setCharacterSize(24);
+
+                            puntajeMaximoText.setCharacterSize(32);
                             puntajeMaximoText.setFillColor(sf::Color::White);
-                            puntajeMaximoText.setString("Mayor puntaje: " + std::to_string(puntajes.front()));
-                            puntajeMaximoText.setPosition(290, 200);
+                            puntajeMaximoText.setString("TOP PUNTAJES: ");
+                            puntajeMaximoText.setPosition(280, 120);
                             window.draw(puntajeMaximoText);
 
-                                // Mostrar los puntajes almacenados
-
-                            for (size_t i = 1; i < 10; ++i) {
-
+                            // Mostrar los puntajes almacenados
+                            for (int i = 0; i < 10; ++i){
                                 puntajeText.setCharacterSize(24);
-                                puntajeText.setFillColor(sf::Color::White);
-                                puntajeText.setString("Puntaje " + std::to_string(i + 1) + ": " + std::to_string(puntajes[i]));
-                                puntajeText.setPosition(290, 220 + i * 30);
+                                puntajeText.setFillColor(sf::Color::Red);
+                                puntajeText.setString("TOP " + std::to_string(i + 1) + ": " + std::to_string(puntajes[i]));
+                                if (i == 0) {
+                                    puntajeText.setFillColor(sf::Color::Green);
+                                }
+                                puntajeText.setPosition(350, 200 + i * 30);
                                 window.draw(puntajeText);
                             }
 
                             window.display();
                             sf::sleep(sf::seconds(2));
                             break;
-                            }
+                    }
+
 
                         case 2:
                             window.close();
